@@ -3,7 +3,7 @@
 // For storing user's theme selection in cookies
 function storeTheme(themeName) {
     // session cookie
-    document.cookie = `theme=${themeName}`;
+    document.cookie = `theme=${themeName}; max-age=30`;
 }
 
 // For restoring theme from cookies, if selected by the user in the past
@@ -31,17 +31,27 @@ function clearTheme() {
 
 // For storing user's display name in cookies
 function storeName(displayName) {
-    // Your code here
+    document.cookie = `displayName=${displayName}`;
 }
 
 // For restoring user's display name from cookies, if set in the past
 function restoreName() {
-    // Your code here
+    // get all cookies
+    const cookies = document.cookie.split("; ");
+
+    // find the displayName cookie
+    const nameCookie = cookies.find(cookie => cookie.startsWith("displayName"));
+
+    if (nameCookie) {
+        // split to get the name value
+        const displayName = nameCookie.split("=")[1];
+        setInputValue("display-name", displayName);
+    }
 }
 
 // For clearing user's display name from cookies
 function clearName() {
-    // Your code here
+    document.cookie = "displayName=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
 }
 
 /* ========================================================================= */
